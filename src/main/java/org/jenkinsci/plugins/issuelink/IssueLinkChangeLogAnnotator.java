@@ -19,8 +19,6 @@ public class IssueLinkChangeLogAnnotator extends ChangeLogAnnotator {
         Matcher m = p.matcher(text.getText());
         while (m.find()) {
             String url = MessageFormat.format(IssueLinkJobProperty.DESCRIPTOR.getLink(), m.group(1));
-
-            //String url = "https://jira.comhem.com/browse/" + m.group(1);
             text.addMarkup(m.start(1), m.end(1), "<a href='" + url + "'>", "</a>");
         }
     }
