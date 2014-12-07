@@ -1,11 +1,17 @@
 package org.jenkinsci.plugins.issuelink;
 
 import hudson.MarkupText;
+import org.junit.Rule;
 import org.junit.Test;
+import org.jvnet.hudson.test.JenkinsRule;
 
 import static org.junit.Assert.assertEquals;
 
 public class IssueLinkChangeLogAnnotatorTest {
+
+    @Rule
+    public JenkinsRule jenkins = new JenkinsRule();
+
 
     @Test
     public void testNoIssue() throws Exception {

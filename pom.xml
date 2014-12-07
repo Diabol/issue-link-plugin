@@ -5,7 +5,6 @@
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
         <version>1.509.4</version>
-        <!-- which version of Jenkins is this plugin built against? Users must have at least this Jenkins version to use this plugin. -->
     </parent>
 
     <groupId>org.jenkins-ci.plugins</groupId>
@@ -26,11 +25,17 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
 
-    <!-- get every artifact through repo.jenkins-ci.org, which proxies all the artifacts that we need -->
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
@@ -54,7 +59,7 @@
                 <configuration>
                     <redirectTestOutputToFile>true</redirectTestOutputToFile>
                     <reuseForks>true</reuseForks>
-                    <forkCount>2</forkCount>
+                    <!--forkCount>2</forkCount-->
                     <systemPropertyVariables>
                         <java.awt.headless>true</java.awt.headless>
                     </systemPropertyVariables>

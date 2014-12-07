@@ -11,6 +11,7 @@ import net.sf.json.JSONObject;
 import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
+import java.text.MessageFormat;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -25,7 +26,7 @@ public class IssueLinkJobProperty extends JobProperty<AbstractProject<?, ?>> {
 
         public DescriptorImpl() {
             super(IssueLinkJobProperty.class);
-            //save();
+            load();
         }
 
         @Override
@@ -82,9 +83,11 @@ public class IssueLinkJobProperty extends JobProperty<AbstractProject<?, ?>> {
             if (Util.fixEmpty(value) == null) {
                 return FormValidation.error("No link defined");
             }
-
-
-
+            try {
+                MessageFormat.format(value, "issue");
+            } catch (IllegalArgumentException e) {
+                return FormValidation.error("Invalid url: " + e.getMessage());
+            }
             return FormValidation.ok();
         }
     }
