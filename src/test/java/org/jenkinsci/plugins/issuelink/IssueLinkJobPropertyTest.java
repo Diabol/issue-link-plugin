@@ -58,6 +58,16 @@ public class IssueLinkJobPropertyTest {
     }
 
     @Test
+    public void testDefaults() {
+        IssueLinkJobProperty.DESCRIPTOR.setLink(null);
+        IssueLinkJobProperty.DESCRIPTOR.setRegex(null);
+        assertEquals("http://issues.nowhere/{0}", IssueLinkJobProperty.DESCRIPTOR.getLink());
+        assertEquals("([a-zA-Z][a-zA-Z]+-\\d+)", IssueLinkJobProperty.DESCRIPTOR.getRegex());
+
+    }
+
+
+    @Test
     @WithoutJenkins
     public void testDisplayName() {
         assertEquals("Issue Link", IssueLinkJobProperty.DESCRIPTOR.getDisplayName());
