@@ -45,9 +45,8 @@ public class IssueLinkJobProperty extends JobProperty<AbstractProject<?, ?>> {
 
         @Override
         public boolean configure(StaplerRequest req, JSONObject formData) {
-            regex = req.getParameter("issuelink.regex");
-            link = req.getParameter("issuelink.link");
-
+            setRegex(req.getParameter("issuelink.regex"));
+            setLink(req.getParameter("issuelink.link"));
             save();
             return true;
         }
@@ -59,6 +58,10 @@ public class IssueLinkJobProperty extends JobProperty<AbstractProject<?, ?>> {
         public String getRegex() {
             if (regex == null) return "([a-zA-Z][a-zA-Z]+-\\d+)";
             return regex;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
         }
 
         public String getLink() {
