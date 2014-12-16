@@ -52,6 +52,9 @@ public class IssueLinkJobProperty extends JobProperty<AbstractProject<?, ?>> {
             return true;
         }
 
+        public void setRegex(String regex) {
+            this.regex = regex;
+        }
 
         public String getRegex() {
             if (regex == null) return "([a-zA-Z][a-zA-Z]+-\\d+)";

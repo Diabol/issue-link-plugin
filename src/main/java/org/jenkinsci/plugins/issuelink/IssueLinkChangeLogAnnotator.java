@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class IssueLinkChangeLogAnnotator extends ChangeLogAnnotator {
     @Override
     public void annotate(AbstractBuild<?, ?> build, ChangeLogSet.Entry change, MarkupText text) {
-        Pattern p = Pattern.compile(IssueLinkJobProperty.DESCRIPTOR.getRegex());
+        Pattern p = Pattern.compile(IssueLinkJobProperty.DESCRIPTOR.getRegex(), Pattern.MULTILINE);
         Matcher m = p.matcher(text.getText());
         while (m.find()) {
             String url = MessageFormat.format(IssueLinkJobProperty.DESCRIPTOR.getLink(), m.group(1));

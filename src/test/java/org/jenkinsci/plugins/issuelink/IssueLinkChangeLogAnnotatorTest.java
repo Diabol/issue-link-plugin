@@ -23,8 +23,25 @@ public class IssueLinkChangeLogAnnotatorTest {
     @Test
     public void testHasOneIssue() throws Exception {
         MarkupText text = new MarkupText("DM-5674 Fixed bug");
+        IssueLinkJobProperty.DESCRIPTOR.setRegex("([a-zA-Z][a-zA-Z]+-\\d+)");
         new IssueLinkChangeLogAnnotator().annotate(null, null, text);
         assertEquals("<a href='http://issues.nowhere/DM-5674'>DM-5674</a> Fixed bug", text.toString(false));
+    }
+
+    @Test
+    public void testHasTwo() throws Exception {
+        MarkupText text = new MarkupText("DM-5674 Fixed bug DM-3423 Fixed this too");
+        IssueLinkJobProperty.DESCRIPTOR.setRegex("([a-zA-Z][a-zA-Z]+-\\d+)");
+        new IssueLinkChangeLogAnnotator().annotate(null, null, text);
+        assertEquals("<a href='http://issues.nowhere/DM-5674'>DM-5674</a> Fixed bug <a href='http://issues.nowhere/DM-3423'>DM-3423</a> Fixed this too", text.toString(false));
+    }
+
+    @Test
+    public void testHasMultiple() throws Exception {
+        MarkupText text = new MarkupText("DMZ-5674 Fixed bug DM-3423 Fixed this too");
+        IssueLinkJobProperty.DESCRIPTOR.setRegex("([a-zA-Z][a-zA-Z]+-\\d+)|([a-zA-Z][a-zA-Z][a-zA-Z]+-\\d+)");
+        new IssueLinkChangeLogAnnotator().annotate(null, null, text);
+        assertEquals("<a href='http://issues.nowhere/DMZ-5674'>DMZ-5674</a> Fixed bug <a href='http://issues.nowhere/DM-3423'>DM-3423</a> Fixed this too", text.toString(false));
     }
 
 }
